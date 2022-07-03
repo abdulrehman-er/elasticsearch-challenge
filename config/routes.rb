@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  use_doorkeeper
+  devise_for :users
+
+  namespace :api do
+    namespace :v1 do
+      resources :verticals, except: %i[new edit]
+      resources :categories, except: %i[new edit]
+      resources :courses,    except: %i[new edit]
+    end
+  end
+  root to: "application#welcome"
 end
